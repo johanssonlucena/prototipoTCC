@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>PreventCrimes</title>
+  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <script>
+    alert("A ideia é uma primeira visualização com os dados gerais (Mapa de calor, distribuição de horários, Top 10 bairros e top 8 Tipos de crimes); deve ficar responsivo e com vizualização correta das informações gráficas, ajustra os tamanhos, paletas de cores e posicionamentos.)");
+  </script>
+
+  <div class="header">
+    <div class="logo-container">
+      <img src="imagem1.jpg" alt="Minha Foto">
+      <div class="title">PreventCrimes</div>
+    </div>
+    <button class="login-button">Login</button>
+  </div>
+
+  <div class="sidebar">
+    <a href="index2.html">Visualização Geral</a>
+    <a href="horarios.html">Visualização por horários</a>
+    <ul>
+      <li> <a href="horario_bairro.html">Dia da Semana e Hora por Bairro</a> </li>
+      <li> <a href="hora_bairro.html">Distribuição de Horas por Bairro</a> </li>
+    </ul>
+    <a href="ocorrencia_bairro.html">Visualização Ocorrências</a>
+    <ul>
+      <li> <a href="bairro_tipo.html">Registros por Bairro e Tipo</a> </li>
+      <li> <a href="registro_periodo.html">Registros por Periodo</a> </li>
+    </ul>
+  </div>
+
+
+  <div class="content">
+    <h1 class="title2">Mapa de Calor com todos os Registros de Ocorrências</h1>
+    <iframe src="campina.html" id="map"></iframe>
+  </div>
+
+
+  <div class="grafico-container">
+    <iframe src="bar-polar.html"></iframe>
+    <iframe src="pie-simple.html"></iframe>
+    <iframe src="bairrostop10.html"></iframe>
+  </div>
+
+</body>
+  
+<footer>
+  <p>&copy; 2025 - PreventCrimes. Todos os direitos reservados.</p>
+  <div class="social">
+    <a href="https://instagram.com/seuusuario" target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://facebook.com/seuusuario" target="_blank">
+      <i class="fab fa-facebook"></i>
+    </a>
+  </div>
+</footer>
+
+</html>

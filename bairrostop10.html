@@ -1,0 +1,98 @@
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=dataset-encode0&code=PYBwLglsB2AEC8sDeAoWsAmBDMWDOApmAFzJrqx7ACuATgMYGkDa5FszA5HvcLQZwA0sTlgC2NaGCEiQtYBmr1pAXUFsKzAIwAGYboCcW4ZwCCAG2oBbgF5RYAYXEhgeTmo3pmAJj2wtAQYmAMoEtPJgAMfA7ursXgDMfloJ3gDsIVhSWLAASq5YsZ4cACzJAGy6JgAyEABGYdgYAh7xHACsyQAc7d4mAEIKwLzQAOYAz0VtzOXJBuUZIgBSrgCXsAAKENAAFgQQ8lPxzGl-3iWpJk5gwOarR-zMXWftJUEiACq0AFd4sACStDEkTcrWOBj8CRS5RMAFksOYAG7bfAPTS6SHlcoJK4EKSHFQaQnoAC-cQokDA5iYZHY1IAZiQRIwpGEhBowAQAB5MzgfUC6WD9LAHeR_XhiWBiEV_XIEUYQPBgMWYAiwADyvHC32g9AgqPIZPIo1oEAwpCQsBGuG21SwDXMpGV1DVRvQXNMXMVFtg0HENM4AEVqFlIE0BLA3bAAJ6e73IWBgaMgAP0HDyvjRziR8nIvAh8zwkAWjR8CB43k7Ms2GC4czsukERmkTgszm0BsU7lMrgWG4yTjCiBcmJg9BibakKoaaVcqc6PQaDAQMR4vBQaCkRfsba5LKjGmoNq8cx8FicADE5Xa_XaXS0A4vADEnw4AKIJEqPp8AESx7SfdwNBJQ1yUIU0CDwFgNCPeIkxTFs6iwDtyXYPFeGaEs2ndFtxEkaRUPiaMWzkBQlGkYoQPYKjYEJEkAG4gA
+	⚠ Please be aware that this chart is not an official demo of Apache ECharts but is made by user-generated code.
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-graph-modularity extension
+  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'canvas',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  dataset: {
+    source: [
+      ['score', 'amount', 'product'],
+      [10, 1091, 'Aluízio Campos'],
+      [20, 1119, 'Serrotão'],
+      [30, 1327, 'Santa Rosa'],
+      [40, 1610, 'Liberdade'],
+      [50, 1852, 'Bodocongó'],
+      [60, 1967, 'José Pinheiro'],
+      [70, 2432, 'Catolé'],
+      [80, 2549, 'Três Irmãs'],
+      [90, 3136, 'Malvinas'],
+      [100, 3663, 'Centro']
+    ]
+  },
+    title: {
+    left: 'center',
+    text: 'Top10 Bairros com mais Registros de Ocorrências'
+  },
+  grid: { containLabel: true },
+  xAxis: { name: 'Quantidade' },
+  yAxis: { type: 'category' },
+  visualMap: {
+    orient: 'horizontal',
+    left: 'center',
+    text: ['Alto', 'Baixo'],
+    min: 10,
+    max: 100,
+    dimension: 0,
+    inRange: {
+      color: ['#65B581', '#FFCE34', '#FD665F']
+    }
+  },
+  series: [
+    {
+      type: 'bar',
+      encode: {
+        x: 'amount',
+        y: 'product'
+      }
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>

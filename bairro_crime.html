@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mapa de Crimes - Campina Grande</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+    select {
+      margin: 10px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Mapa de Crimes - Campina Grande</h2>
+
+  <label for="bairro">Escolha o bairro:</label>
+  <select id="bairro" onchange="filtrar()">
+    <option value="Todos">Todos</option>
+    <option value="Centro">Centro</option>
+    <option value="Bodocongó">Bodocongó</option>
+    <option value="Catolé">Catolé</option>
+  </select>
+
+  <label for="tipo">Tipo de crime:</label>
+  <select id="tipo" onchange="filtrar()">
+    <option value="Todos">Todos</option>
+    <option value="Roubo">Roubo</option>
+    <option value="Furto">Furto</option>
+    <option value="Homicidio">Homicidio</option>
+    <option value="Feminicidio">Feminicidio</option>
+  </select>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Inicializa o mapa em Campina Grande
+    var map = L.map('map').setView([-7.2306, -35.8811], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+    
+    // Ícones personalizados
+    var icons = {
+      'Roubo': L.icon({ iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', iconSize: [32,32] }),
+      'Furto': L.icon({ iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png', iconSize: [32,32] }),
+      'Homicidio': L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [32,32] }),
+      'Feminicidio': L.icon({ iconUrl: 'https://maps.google.com/mapfiles/ms/icons/pink-dot.png', iconSize: [32,32] })
+    };
+
+    var crimes = [
+      { bairro: 'Centro', tipo: 'Roubo',       lat: -7.217702731191768, lon: -35.88072851834912 },
+      { bairro: 'Centro', tipo: 'Homicidio',   lat: -7.221300327978083, lon: -35.88630751325031 },
+      { bairro: 'Centro', tipo: 'Furto',       lat: -7.220427540854257, lon: -35.8768661372637 },
+      { bairro: 'Centro', tipo: 'Feminicidio', lat: -7.216361607909222, lon: -35.8836682195086 },
+      { bairro: 'Centro', tipo: 'Roubo',       lat: -7.2171918275528695, lon: -35.888045584738755 },
+      { bairro: 'Bodocongó', tipo: 'Homicidio',   lat: -7.221002303376293, lon: -35.9168846958566 },
+      { bairro: 'Bodocongó', tipo: 'Roubo',       lat: -7.221640927454686, lon: -35.92018917745192 },
+      { bairro: 'Bodocongó', tipo: 'Feminicidio', lat: -7.2233652079608035, lon: -35.91819361389112 },
+      { bairro: 'Bodocongó', tipo: 'Furto',       lat: -7.218171059100956, lon: -35.921026026687095 },
+      { bairro: 'Bodocongó', tipo: 'Roubo',       lat: -7.221023590860099, lon: -35.923021590247906 },
+      { bairro: 'Bodocongó', tipo: 'Homicidio',   lat: -7.217149252303946, lon: -35.92016771977922 },
+      { bairro: 'Catolé', tipo: 'Roubo',       lat: -7.231560772366974,  lon: -35.87800339409227 },
+      { bairro: 'Catolé', tipo: 'Furto',       lat: -7.234030056096832,  lon: -35.879162108417894 },
+      { bairro: 'Catolé', tipo: 'Homicidio',   lat: -7.238670570004396,  lon: -35.8757288807864 },
+      { bairro: 'Catolé', tipo: 'Feminicidio', lat: -7.2350943983663285, lon: -35.88014916136195 },
+      { bairro: 'Catolé', tipo: 'Furto',       lat: -7.235264692896544,  lon: -35.8831961508849 },
+      { bairro: 'Catolé', tipo: 'Roubo',       lat: -7.2269201853782405, lon: -35.87770298667451 }
+      ];
+
+    var markers = [];
+
+    // Função para adicionar os marcadores no mapa
+    function adicionarMarcadores() {
+      crimes.forEach(function(c) {
+        var icon = icons[c.tipo];
+        var marker = L.marker([c.lat, c.lon], { icon: icon }).addTo(map)
+          .bindPopup("<b>" + c.tipo + "</b><br>Bairro: " + c.bairro);
+        markers.push(marker);
+      });
+    }
+
+    // Filtrar marcadores por bairro e tipo de crime
+    function filtrar() {
+      var bairroSelecionado = document.getElementById('bairro').value;
+      var tipoSelecionado = document.getElementById('tipo').value;
+
+      // Remove todos os marcadores
+      markers.forEach(function(m) {
+        map.removeLayer(m);
+      });
+      markers = [];
+
+      // Adiciona só os filtrados
+      crimes.forEach(function(c) {
+        if ((bairroSelecionado === 'Todos' || c.bairro === bairroSelecionado) &&
+            (tipoSelecionado === 'Todos' || c.tipo === tipoSelecionado)) {
+
+          var icon = icons[c.tipo];
+          var marker = L.marker([c.lat, c.lon], { icon: icon }).addTo(map)
+            .bindPopup("<b>" + c.tipo + "</b><br>Bairro: " + c.bairro);
+          markers.push(marker);
+        }
+      });
+    }
+
+    // Inicia com todos os marcadores
+    adicionarMarcadores();
+
+  </script>
+</body>
+</html>
